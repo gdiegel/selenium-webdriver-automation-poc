@@ -1,6 +1,5 @@
-package com.unitedinternet.mam.qa.specification.search;
+package com.unitedinternet.mam.qa.specification;
 
-import com.unitedinternet.mam.qa.specification.Browser;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -65,7 +64,7 @@ abstract class BaseTest {
     private static ChromeOptions configureChrome() {
         final ChromeOptions options = new ChromeOptions();
         options.setAcceptInsecureCerts(true);
-        options.setHeadless(false);
+        options.setHeadless(true);
         options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
         return options;
     }
@@ -73,7 +72,7 @@ abstract class BaseTest {
     private static FirefoxOptions configureFirefox() {
         final FirefoxOptions options = new FirefoxOptions();
         options.setAcceptInsecureCerts(true);
-        options.setHeadless(false);
+        options.setHeadless(true);
         return options;
     }
 

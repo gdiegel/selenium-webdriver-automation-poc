@@ -1,6 +1,5 @@
-package com.unitedinternet.mam.qa.specification.search;
+package com.unitedinternet.mam.qa.specification;
 
-import com.unitedinternet.mam.qa.specification.SearchPage;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
