@@ -1,7 +1,7 @@
-#NO_YP2_ENTRY_NEEDED
-target
-logs
-reports
+snaps/
+target/
+logs/
+reports/
 .DS_Store
 *.iml
 .idea
