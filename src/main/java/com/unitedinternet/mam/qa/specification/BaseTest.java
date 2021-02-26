@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class BaseTest {
 
-    private static final Browser BROWSER = Browser.valueOf(env("BROWSER").orElse("chrome").toUpperCase());
-    static final String BASE_URI = env("BASE_URI").orElse("https://suche.web.de/web");
+    private static final Browser BROWSER = Browser.valueOf(env("BROWSER").orElse("firefox").toUpperCase());
+    static final String BASE_URI = env("BASE_URI").orElse("https://suche.web.de");
     WebDriver driver;
 
     @BeforeAll
@@ -46,14 +46,14 @@ abstract class BaseTest {
     private WebDriver getBrowser() {
         WebDriver driver = null;
         switch (BROWSER) {
-            case FIREFOX:
+            case FIREFOX -> {
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(configureFirefox());
-                break;
-            case CHROME:
+            }
+            case CHROME -> {
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(configureChrome());
-                break;
+            }
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.printf("Capabilities of [%s]:%n", BROWSER);
