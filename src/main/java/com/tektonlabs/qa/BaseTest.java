@@ -60,14 +60,14 @@ abstract class BaseTest {
     private WebDriver getBrowser() {
         WebDriver driver = null;
         switch (BROWSER) {
-            case FIREFOX -> {
+            case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(configureFirefox());
-            }
-            case CHROME -> {
+                break;
+            case CHROME:
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(configureChrome());
-            }
+                break;
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.printf("Capabilities of [%s]:%n", BROWSER);
