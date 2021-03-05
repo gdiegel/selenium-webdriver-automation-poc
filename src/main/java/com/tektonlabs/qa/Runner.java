@@ -1,4 +1,4 @@
-package com.unitedinternet.mam.qa.specification;
+package com.tektonlabs.qa;
 
 import com.google.common.base.Stopwatch;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
@@ -12,7 +12,7 @@ public class Runner {
     public static void main(String[] args) {
         final Stopwatch stopWatch = createStarted();
         final LauncherDiscoveryRequestBuilder builder = LauncherDiscoveryRequestBuilder.request();
-        builder.selectors(selectClass(SearchTest.class));
+        builder.selectors(selectClass(ShopTest.class));
         LauncherFactory.create().execute(builder.build());
         stopWatch.stop();
     }

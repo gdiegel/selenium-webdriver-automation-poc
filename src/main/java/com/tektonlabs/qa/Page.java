@@ -1,4 +1,4 @@
-package com.unitedinternet.mam.qa.specification;
+package com.tektonlabs.qa;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
