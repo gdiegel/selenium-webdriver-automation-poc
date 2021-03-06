@@ -21,7 +21,7 @@ BROWSER=chrome java -jar target/app.jar
 The base URL can be set by via the environment variable `BASE_URL`:
 
 ```
-BASE_URL=https://www.thermomix.com
+BASE_URL=https://www.thermomix.com java -jar target/app.jar
 ```
 
 ## Requirements
