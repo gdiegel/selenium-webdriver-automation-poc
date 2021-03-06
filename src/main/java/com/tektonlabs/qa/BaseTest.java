@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.HasCapabilities;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -28,21 +29,24 @@ abstract class BaseTest {
     private static final Browser BROWSER = Browser.valueOf(env("BROWSER").orElse("firefox").toUpperCase());
     private static final Logger LOG = LoggerFactory.getLogger(BaseTest.class);
     static final String BASE_URI = env("BASE_URI").orElse("https://thermomix.com/");
-
     WebDriver driver;
 
     @BeforeAll
     void init() {
         driver = getBrowser();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
         driver.get(BASE_URI);
     }
 
     @AfterAll
     void tearDown() {
         driver.quit();
+    }
+
+    protected JavascriptExecutor scroller() {
+        return (JavascriptExecutor) driver;
     }
 
     private static Optional<String> env(String key) {
@@ -70,22 +74,22 @@ abstract class BaseTest {
                 break;
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        System.out.printf("Capabilities of [%s]:%n", BROWSER);
-        ((HasCapabilities) driver).getCapabilities().asMap().forEach((key, value) -> System.out.println(key + ":" + value));
+        LOG.info("Capabilities of [{}]:", BROWSER);
+        ((HasCapabilities) driver).getCapabilities().asMap().forEach((key, value) -> LOG.info(key + ":" + value));
         return driver;
     }
 
     private static ChromeOptions configureChrome() {
         final ChromeOptions options = new ChromeOptions();
-        options.setAcceptInsecureCerts(true);
-        options.setHeadless(true);
+        options.setAcceptInsecureCerts(false);
+        options.setHeadless(false);
         options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
         return options;
     }
 
     private static FirefoxOptions configureFirefox() {
         final FirefoxOptions options = new FirefoxOptions();
-        options.setAcceptInsecureCerts(true);
+        options.setAcceptInsecureCerts(false);
         options.setHeadless(false);
         return options;
     }

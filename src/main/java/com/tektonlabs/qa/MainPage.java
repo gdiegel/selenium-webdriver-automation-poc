@@ -14,7 +14,6 @@ public class MainPage extends Page {
 
     public MainPage(WebDriver driver) {
         super(driver);
-        LOG.info("At {} [{}]", driver.getTitle(), driver.getCurrentUrl());
         assertThat(mainNavigation.isDisplayed()).isTrue();
     }
 
@@ -25,6 +24,7 @@ public class MainPage extends Page {
     private WebElement shopLink;
 
     public ShopPage goToShop() {
+        LOG.debug("Clicking {}", shopLink.toString());
         shopLink.click();
         return new ShopPage(driver);
     }
