@@ -1,8 +1,9 @@
 package com.tektonlabs.qa;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ShopTest extends BaseTest {
 
@@ -10,8 +11,8 @@ class ShopTest extends BaseTest {
     void shouldBeAbleToGoToShop() {
         final ShopPage shopPage = new MainPage(driver).goToShop();
         final WebElement copyright = shopPage.getCopyright();
-        scroller().executeScript("arguments[0].scrollIntoView(true);", copyright);
-        Assertions.assertThat(copyright.getText()).isEqualTo("© 2021. All rights reserved.");
+        scrollTo(copyright);
+        assertThat(copyright.getText()).isEqualTo("© 2021. All rights reserved.");
         snap(driver);
     }
 }
