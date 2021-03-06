@@ -12,8 +12,20 @@ mvn package
 java -jar target/app.jar
 ```
 
+The browser used defaults to Firefox but can be explicitely set via the environment variable `BROWSER`:
+
+```
+BROWSER=chrome java -jar target/app.jar
+```
+
+The base URL can be set by via the environment variable `BASE_URL`:
+
+```
+BASE_URL=https://www.thermomix.com
+```
+
 ## Requirements
 
 * Maven 3.x.x
 * JDK >11
-* Firefox/Chrome
+* Firefox/Chrome binaries have to be installed locally
