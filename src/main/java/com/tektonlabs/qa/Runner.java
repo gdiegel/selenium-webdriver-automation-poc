@@ -23,10 +23,11 @@ public class Runner {
         final Stopwatch stopWatch = createStarted();
         final LauncherDiscoveryRequestBuilder builder = LauncherDiscoveryRequestBuilder.request();
         builder.selectors(selectClass(ShopTest.class));
-        final SummaryGeneratingListener listener = new SummaryGeneratingListener();
-        LauncherFactory.create().execute(builder.build(), listener);
+        final SummaryGeneratingListener summaryGeneratingListener = new SummaryGeneratingListener();
+        final ExtentReportGeneratingListener extentReportGeneratingListener = new ExtentReportGeneratingListener();
+        LauncherFactory.create().execute(builder.build(), summaryGeneratingListener, extentReportGeneratingListener);
         stopWatch.stop();
-        final List<TestExecutionSummary.Failure> failures = listener.getSummary().getFailures();
+        final List<TestExecutionSummary.Failure> failures = summaryGeneratingListener.getSummary().getFailures();
         LOG.info(format("Finished test suite in [%s] with [%s] failures", stopWatch, failures.size()));
         failures.forEach(failure -> LOG.info(format("%s: %s", failure.getTestIdentifier().getDisplayName(), failure.getException())));
         exit(failures.size() == 0 ? 0 : 1);
