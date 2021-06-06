@@ -30,6 +30,6 @@
     </root>
     <logger name="org.junit.jupiter" level="DEBUG"/>
     <logger name="org.junit.platform" level="DEBUG"/>
-    <logger name="com.tektonlabs.qa" level="DEBUG"/>
+    <logger name="io.github.gdiegel" level="DEBUG"/>
     <logger name="org.apache" level="WARN"/>
 </configuration>

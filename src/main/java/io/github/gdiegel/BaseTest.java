@@ -1,10 +1,13 @@
-package com.tektonlabs.qa;
+package io.github.gdiegel;
 
+import io.github.gdiegel.extension.SnapExtension;
+import io.github.gdiegel.listener.SnapListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -15,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +29,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(SnapExtension.class)
 abstract class BaseTest {
 
     private static final Browser BROWSER = Browser.valueOf(env("BROWSER").orElse("firefox").toUpperCase());
@@ -32,16 +37,18 @@ abstract class BaseTest {
     static final String BASE_URI = env("BASE_URI").orElse("https://thermomix.com/");
     WebDriver driver;
 
-    @BeforeAll
-    void init() {
+    @BeforeEach
+    void setup() {
         driver = getBrowser();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+        driver = new EventFiringWebDriver(getBrowser());
+        ((EventFiringWebDriver) driver).register(SnapListener.getInstance());
         driver.get(BASE_URI);
     }
 
-    @AfterAll
+    @AfterEach
     void tearDown() {
         driver.quit();
     }
@@ -54,7 +61,7 @@ abstract class BaseTest {
         if (key == null) {
             return Optional.empty();
         } else {
-            String var = System.getenv(key);
+            var var = System.getenv(key);
             if (var == null) {
                 var = System.getProperty(key);
             }
@@ -81,7 +88,7 @@ abstract class BaseTest {
     }
 
     private static ChromeOptions configureChrome() {
-        final ChromeOptions options = new ChromeOptions();
+        final var options = new ChromeOptions();
         options.setAcceptInsecureCerts(false);
         options.setHeadless(false);
         options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
@@ -89,16 +96,16 @@ abstract class BaseTest {
     }
 
     private static FirefoxOptions configureFirefox() {
-        final FirefoxOptions options = new FirefoxOptions();
+        final var options = new FirefoxOptions();
         options.setAcceptInsecureCerts(false);
         options.setHeadless(false);
         return options;
     }
 
     static void snap(WebDriver webdriver) {
-        final TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
-        final File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-        final File DestFile = new File(String.format("./snaps/%s.png", UUID.randomUUID()));
+        final var scrShot = ((TakesScreenshot) webdriver);
+        final var SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+        final var DestFile = new File(String.format("./snaps/%s.png", UUID.randomUUID()));
         try {
             FileUtils.copyFile(SrcFile, DestFile);
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package com.tektonlabs.qa;
+package io.github.gdiegel.listener;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -17,20 +17,17 @@ import java.util.stream.Collectors;
 import static com.aventstack.extentreports.Status.INFO;
 import static com.aventstack.extentreports.Status.WARNING;
 
-class ExtentReportGeneratingListener implements TestExecutionListener {
+public class ExtentReportGeneratingListener implements TestExecutionListener {
 
-    private final ExtentSparkReporter reporter = new ExtentSparkReporter("report.html");
-    private final ExtentReports extentReport = new ExtentReports();
     private static final Map<TestIdentifier, TestExecutionResult> RESULTS = new HashMap<>();
     private static final Map<TestIdentifier, String> SKIPPED = new HashMap<>();
+    private final ExtentSparkReporter reporter = new ExtentSparkReporter("report.html");
+    private final ExtentReports extentReport = new ExtentReports();
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
         this.extentReport.attachReporter(reporter);
-        testPlan.getChildren(getRoot(testPlan)).forEach(testIdentifier -> {
-            System.out.printf("Adding parent [%s]%n", testIdentifier.getUniqueId());
-            RESULTS.put(testIdentifier, null);
-        });
+        testPlan.getChildren(getRoot(testPlan)).forEach(testIdentifier -> RESULTS.put(testIdentifier, null));
 
     }
 
@@ -39,9 +36,8 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
         testPlan.getChildren(getRoot(testPlan)).forEach(klass -> {
             if (SKIPPED.containsKey(klass)) {
                 extentReport.createTest(getKlassName(klass.getUniqueId())).skip(SKIPPED.get(klass));
-                System.out.printf("Marking klass [%s] as skipped%n", klass.getDisplayName());
             } else if (RESULTS.containsKey(klass)) {
-                final ExtentTest testKlass = extentReport.createTest(getKlassName(klass.getUniqueId()));
+                final var testKlass = extentReport.createTest(getKlassName(klass.getUniqueId()));
                 testPlan.getDescendants(klass).forEach(test -> processTestNode(testKlass, test));
             }
         });
@@ -49,13 +45,12 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
     }
 
     private void processTestNode(ExtentTest testKlass, TestIdentifier test) {
-        final ExtentTest node = testKlass.createNode(test.getDisplayName());
+        final var node = testKlass.createNode(test.getDisplayName());
         if (SKIPPED.containsKey(test)) {
             node.skip(SKIPPED.get(test));
-            System.out.printf("Marking test [%s] as skipped%n", test.getDisplayName());
             return;
         }
-        final TestExecutionResult testResult = RESULTS.get(test);
+        final var testResult = RESULTS.get(test);
         if (testResult == null) {
             node.log(INFO, "No test results found");
             return;
@@ -101,8 +96,7 @@ class ExtentReportGeneratingListener implements TestExecutionListener {
     }
 
     private String getKlassName(UniqueId uniqueId) {
-        return uniqueId
-                .getSegments().stream()
+        return uniqueId.getSegments().stream()
                 .filter(segment -> segment.getType().equals("class"))
                 .map(UniqueId.Segment::getValue)
                 .collect(Collectors.joining());

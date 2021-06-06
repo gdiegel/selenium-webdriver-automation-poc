@@ -1,11 +1,11 @@
-package com.tektonlabs.qa;
+package io.github.gdiegel.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Page {
+public abstract class Page {
 
     private static final Logger LOG = LoggerFactory.getLogger(Page.class);
 

@@ -1,4 +1,4 @@
-package com.tektonlabs.qa;
+package io.github.gdiegel.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

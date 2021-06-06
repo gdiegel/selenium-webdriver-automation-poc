@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.unitedinternet.mam.qa</groupId>
+    <groupId>com.github.gdiegel</groupId>
     <artifactId>selenium-webdriver-automation-poc</artifactId>
     <packaging>jar</packaging>
     <version>${revision}</version>
@@ -13,13 +13,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <revision>1-SNAPSHOT</revision>
         <selenium.version>3.141.59</selenium.version>
-        <junit-jupiter.version>5.7.0</junit-jupiter.version>
+        <junit-jupiter.version>5.7.1</junit-jupiter.version>
         <logback.version>1.2.3</logback.version>
-        <junit-platform.version>1.7.0</junit-platform.version>
+        <junit-platform.version>1.7.1</junit-platform.version>
     </properties>
     <inceptionYear>2019</inceptionYear>
     <ciManagement>
-        <system>Gitlab</system>
+        <system>Github</system>
         <url>https://github.com/gdiegel/${project.artifactId}</url>
     </ciManagement>
     <developers>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.26</version>
+            <version>1.7.30</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.18.1</version>
+            <version>3.19.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>4.3.1</version>
+            <version>4.4.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -117,8 +117,9 @@
                         <configuration>
                             <finalName>app</finalName>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.tektonlabs.qa.Runner</mainClass>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>io.github.gdiegel.Runner</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>
@@ -138,8 +139,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <release>11</release>
                 </configuration>
             </plugin>
 
