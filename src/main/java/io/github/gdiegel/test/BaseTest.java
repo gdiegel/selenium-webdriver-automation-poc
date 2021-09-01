@@ -1,6 +1,7 @@
-package io.github.gdiegel;
+package io.github.gdiegel.test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.gdiegel.Browser;
 import io.github.gdiegel.extension.SnapExtension;
 import io.github.gdiegel.listener.SnapListener;
 import org.apache.commons.io.FileUtils;

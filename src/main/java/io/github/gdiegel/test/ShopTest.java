@@ -1,4 +1,4 @@
-package io.github.gdiegel;
+package io.github.gdiegel.test;
 
 import io.github.gdiegel.page.MainPage;
 import org.junit.jupiter.api.Test;
