@@ -13,9 +13,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <revision>1-SNAPSHOT</revision>
         <selenium.version>3.141.59</selenium.version>
-        <junit-jupiter.version>5.7.1</junit-jupiter.version>
-        <logback.version>1.2.3</logback.version>
-        <junit-platform.version>1.7.1</junit-platform.version>
+        <junit-jupiter.version>5.7.2</junit-jupiter.version>
+        <logback.version>1.2.5</logback.version>
+        <junit-platform.version>1.7.2</junit-platform.version>
     </properties>
     <inceptionYear>2019</inceptionYear>
     <ciManagement>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
+            <version>1.7.32</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.19.0</version>
+            <version>3.20.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -93,15 +93,24 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>4.4.0</version>
+            <version>5.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>5.0.7</version>
+            <version>5.0.8</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.20</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
@@ -139,7 +148,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
+                    <release>16</release>
                 </configuration>
             </plugin>
 

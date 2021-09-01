@@ -1,10 +1,11 @@
 package io.github.gdiegel;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.gdiegel.extension.SnapExtension;
 import io.github.gdiegel.listener.SnapListener;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,19 +38,19 @@ abstract class BaseTest {
     static final String BASE_URI = env("BASE_URI").orElse("https://thermomix.com/");
     WebDriver driver;
 
-    @BeforeEach
-    void setup() {
-        driver = getBrowser();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+    @BeforeAll
+    void init() {
         driver = new EventFiringWebDriver(getBrowser());
         ((EventFiringWebDriver) driver).register(SnapListener.getInstance());
+    }
+
+    @BeforeEach
+    void setup() {
         driver.get(BASE_URI);
     }
 
-    @AfterEach
-    void tearDown() {
+    @AfterAll
+    void deInit() {
         driver.quit();
     }
 
@@ -72,14 +73,14 @@ abstract class BaseTest {
     private WebDriver getBrowser() {
         WebDriver driver = null;
         switch (BROWSER) {
-            case FIREFOX:
+            case FIREFOX -> {
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(configureFirefox());
-                break;
-            case CHROME:
+            }
+            case CHROME -> {
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver(configureChrome());
-                break;
+            }
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         LOG.info("Capabilities of [{}]:", BROWSER);
