@@ -8,11 +8,12 @@ import org.slf4j.LoggerFactory;
 
 public class SnapExtension implements BeforeEachCallback {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SnapExtension.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SnapExtension.class);
 
-    @Override
-    public void beforeEach(ExtensionContext context) {
-        LOG.info("RUN [{}.{}]", context.getRequiredTestClass().getSimpleName(), context.getRequiredTestMethod().getName());
-        SnapListener.getInstance().setContext(context);
-    }
+  @Override
+  public void beforeEach(ExtensionContext context) {
+    LOG.info("RUN [{}.{}]", context.getRequiredTestClass().getSimpleName(),
+        context.getRequiredTestMethod().getName());
+    SnapListener.getInstance().setContext(context);
+  }
 }

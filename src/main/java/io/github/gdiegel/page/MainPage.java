@@ -10,23 +10,23 @@ import org.slf4j.LoggerFactory;
 
 public class MainPage extends Page {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MainPage.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MainPage.class);
 
-    public MainPage(WebDriver driver) {
-        super(driver);
-        assertThat(mainNavigation).isNotNull();
-        assertThat(mainNavigation.isDisplayed()).isTrue();
-    }
+  public MainPage(WebDriver driver) {
+    super(driver);
+    assertThat(mainNavigation).isNotNull();
+    assertThat(mainNavigation.isDisplayed()).isTrue();
+  }
 
-    @FindBy(id = "menu-main-nav")
-    private WebElement mainNavigation;
+  @FindBy(id = "menu-main-nav")
+  private WebElement mainNavigation;
 
-    @FindBy(id = "menu-item-4460")
-    private WebElement shopLink;
+  @FindBy(id = "menu-item-4460")
+  private WebElement shopLink;
 
-    public ShopPage goToShop() {
-        LOG.debug("Clicking {}", shopLink.toString());
-        shopLink.click();
-        return new ShopPage(driver);
-    }
+  public ShopPage goToShop() {
+    LOG.debug("Clicking {}", shopLink.toString());
+    shopLink.click();
+    return new ShopPage(driver);
+  }
 }

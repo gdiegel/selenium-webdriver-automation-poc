@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 
 public abstract class Page {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Page.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Page.class);
 
-    protected WebDriver driver;
+  protected WebDriver driver;
 
-    public Page(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        LOG.info("At [{}] => [{}]", driver.getTitle(), driver.getCurrentUrl());
-    }
+  public Page(WebDriver driver) {
+    this.driver = driver;
+    PageFactory.initElements(driver, this);
+    LOG.info("At [{}] => [{}]", driver.getTitle(), driver.getCurrentUrl());
+  }
 }
