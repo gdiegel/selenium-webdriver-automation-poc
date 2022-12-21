@@ -1,11 +1,11 @@
 package io.github.gdiegel.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.github.gdiegel.page.MainPage;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-class ShopTest extends BaseTest {
+public class ShopTest extends BaseTest {
 
     @Test
     void shouldBeAbleToGoToShop() {

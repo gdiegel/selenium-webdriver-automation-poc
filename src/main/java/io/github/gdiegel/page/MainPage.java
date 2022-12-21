@@ -1,12 +1,12 @@
 package io.github.gdiegel.page;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainPage extends Page {
 
@@ -14,6 +14,7 @@ public class MainPage extends Page {
 
     public MainPage(WebDriver driver) {
         super(driver);
+        assertThat(mainNavigation).isNotNull();
         assertThat(mainNavigation.isDisplayed()).isTrue();
     }
 

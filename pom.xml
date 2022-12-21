@@ -13,9 +13,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <revision>1-SNAPSHOT</revision>
         <selenium.version>3.141.59</selenium.version>
-        <junit-jupiter.version>5.7.2</junit-jupiter.version>
-        <logback.version>1.2.5</logback.version>
-        <junit-platform.version>1.7.2</junit-platform.version>
+        <junit-jupiter.version>5.9.0</junit-jupiter.version>
+        <logback.version>1.2.11</logback.version>
+        <junit-platform.version>1.9.0</junit-platform.version>
     </properties>
     <inceptionYear>2019</inceptionYear>
     <ciManagement>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.32</version>
+            <version>1.7.36</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.20.2</version>
+            <version>3.23.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -107,7 +107,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.20</version>
+                <version>1.18.24</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -136,6 +136,9 @@
                                     <artifact>*:*</artifact>
                                     <excludes>
                                         <exclude>**/module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
@@ -146,7 +149,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
                     <release>16</release>
                 </configuration>
